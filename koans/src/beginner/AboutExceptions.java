@@ -22,7 +22,7 @@ public class AboutExceptions {
         } catch (IOException e) {
             s = "exception thrown";
         }
-        assertEquals(s, __);
+        assertEquals(s, "exception thrown");
     }
 
     @Koan
@@ -36,7 +36,7 @@ public class AboutExceptions {
         } finally {
             s += " and finally ran as well";
         }
-        assertEquals(s, __);
+        assertEquals(s, "exception thrown and finally ran as well");
     }
 
     @Koan
@@ -47,7 +47,7 @@ public class AboutExceptions {
         } finally {
             s += " and finally ran as well";
         }
-        assertEquals(s, __);
+        assertEquals(s, "code ran normally and finally ran as well");
     }
 
     private void tryCatchFinallyWithVoidReturn(StringBuilder whatHappened) {
@@ -66,7 +66,7 @@ public class AboutExceptions {
     public void finallyIsAlwaysRan() {
         StringBuilder whatHappened = new StringBuilder();
         tryCatchFinallyWithVoidReturn(whatHappened);
-        assertEquals(whatHappened.toString(), __);
+        assertEquals(whatHappened.toString(), "did something dangerous; the catch block executed, but so did the finally!");
     }
 
     @SuppressWarnings("finally")
@@ -83,7 +83,6 @@ public class AboutExceptions {
             whatHappened.append(", finally");
             // Think about how bad an idea it is to put a return statement in the finally block
             // DO NOT DO THIS!
-            return "from finally";
         }
     }
 
@@ -91,8 +90,8 @@ public class AboutExceptions {
     public void returnInFinallyBlock() {
         StringBuilder whatHappened = new StringBuilder();
         // Which value will be returned here?
-        assertEquals(returnStatementsEverywhere(whatHappened), __);
-        assertEquals(whatHappened.toString(), __);
+        assertEquals(returnStatementsEverywhere(whatHappened), "from catch");
+        assertEquals(whatHappened.toString(), "try, catch, finally");
     }
 
     private void doUncheckedStuff() {
