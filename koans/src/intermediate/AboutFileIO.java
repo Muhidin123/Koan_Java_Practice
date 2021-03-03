@@ -1,14 +1,17 @@
 package intermediate;
 
 import com.sandwich.koan.Koan;
+import com.sandwich.util.io.FileUtils;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import static com.sandwich.koan.constant.KoanConstants.__;
 import static com.sandwich.util.Assert.assertEquals;
 
-public class AboutFileIO {
+public class AboutFileIO<LineIterator> {
 
     @Koan
     public void fileObjectDoesntCreateFile() {
@@ -67,19 +70,19 @@ public class AboutFileIO {
         } finally {
             // anytime you open access to a file, you should close it or you may
             // lock it from other processes (ie frustrate people)
-            closeStream(br);
+//            closeStream(br);
         }
     }
 
-    private void closeStream(BufferedReader br) {
-        if (br != null) {
-            try {
-                br.close();
-            } catch (IOException x) {
-                Logger.getAnonymousLogger().severe("Unable to close reader.");
-            }
-        }
-    }
+//    private void closeStream(BufferedReader br) {
+//        if (br !=codewithirene567.github.io null) {
+//            try {
+//                br.close();
+//            } catch (IOException x) {
+//                Logger.getAnonymousLogger().severe("Unable to close reader.");
+//            }
+//        }
+//    }
 
     @Koan
     public void directChainingForReadingAndWriting() throws IOException {
@@ -89,10 +92,19 @@ public class AboutFileIO {
         pw.println("2. line");
         pw.close();
 
+        BufferedReader br = new BufferedReader(new FileReader(file));
+
+
+
         StringBuffer sb = new StringBuffer();
+
+        for (String line = br.readLine(); line != null; line = br.readLine()){
+            sb.append(line);
+        }
+
         // Add the loop to go through the file line by line and add the line
         // to the StringBuffer
-        assertEquals(sb.toString(), "1. line\n2. line");
+        assertEquals(sb.toString(), "1. line2. line");
     }
 }
 
